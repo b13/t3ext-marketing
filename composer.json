@@ -1,0 +1,8 @@
+{
+    "name": "b13/typo3-marketing",
+    "type": "typo3-cms-marketing",
+    "description": "The basis for marketing infos for TYPO3 CMS",
+    "license": ["MIT License"],
+    "keywords": ["TYPO3 CMS", "Marketing"]
+}
+

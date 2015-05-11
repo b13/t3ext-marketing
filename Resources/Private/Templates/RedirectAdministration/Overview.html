@@ -1,0 +1,69 @@
+<f:layout name="RedirectAdministration" />
+
+<f:section name="Content">
+	<h2>Redirect Management</h2>
+	<f:form action="add">
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>URL</label>
+					<f:form.textfield name="url" class="form-control" placeholder="/" />
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="form-group">
+					<label>Redirect to</label>
+					<f:form.textfield name="destination" class="form-control " placeholder="http://www.mydomain.com" />
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label>Redirect type</label>
+					<f:form.select name="httpstatuscode" options="{301: 'Moved Permanently (301)', 303: 'Temporary/See Other (303)'}" class="form-control" />
+				</div>
+				<f:if condition="{allDomains}">
+					<div class="form-group">
+						<label>Selected domain only</label>
+						<f:form.select name="domainrecord" options="{allDomains}" prependOptionLabel=" - all -" prependOptionValue="0" value="{selectedDomain}" />
+					</div>
+				</f:if>
+			</div>
+			<div class="col-xs-1">
+				<div class="form-group">
+					<label>&nbsp;</label>
+					<f:form.submit name="submit" value="Add Redirect" class="btn btn-default" />
+				</div>
+			</div>
+		</div>
+	</f:form>
+
+	<div class="table-fit">
+		<table data-table="be_groups" class="table table-striped table-hover">
+			<thead>
+				<!-- Element, begin: -->
+				<tr  data-uid="0">
+					<th>URL</th>
+					<th>Destination</th>
+					<th>Restrict to Domain</th>
+					<th># Hits</th>
+					<th>Last Hit on</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+			<f:for each="{redirects}" as="redirect">
+				<tr class="firstcol" data-uid="3">
+					<td>
+						<strong>{redirect.url}</strong> ({redirect.httpstatuscode})
+					</td>
+					<td>{redirect.destination}</td>
+					<td><f:if condition="{redirect.domainrecord}">TODO [UID {redirect.domainrecord}]</f:if></td>
+					<td>{redirect.numberofhits} Hits</td>
+					<td><f:if condition="{redirect.lasthiton}">15.05.2015 14:00 (Referer: {redirect.lastreferer}</f:if></td>
+					<td><f:link.action action="remove" arguments="{redirect: redirect.uid}" class="btn btn-default t3js-record-delete" title="Delete record (!)"><span class="t3-icon fa fa-trash"> </span></f:link.action></td>
+				</tr>
+			</f:for>
+			</tbody>
+		</table>
+	</div>
+</f:section>
